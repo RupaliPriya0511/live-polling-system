@@ -27,14 +27,14 @@ export class PollController {
 
   static async submitVote(req: Request, res: Response) {
     try {
-      const { pollId, userId, selectedOption } = req.body;
+      const { pollId, studentSessionId, studentName, optionId } = req.body;
       
-      const hasVoted = await voteService.hasUserVoted(pollId, userId);
+      const hasVoted = await voteService.hasVoted(pollId, studentSessionId);
       if (hasVoted) {
         return res.status(400).json({ error: 'User has already voted' });
       }
       
-      const vote = await voteService.submitVote(pollId, userId, selectedOption);
+      const vote = await voteService.submitVote(pollId, studentSessionId, studentName, optionId);
       res.status(201).json(vote);
     } catch (error) {
       res.status(500).json({ error: 'Failed to submit vote' });
