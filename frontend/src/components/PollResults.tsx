@@ -30,12 +30,10 @@ const PollResults: React.FC<Props> = ({ poll, results }) => {
         {allResults.map((result) => (
           <div 
             key={result.optionId} 
-            className="option-bar"
-            style={{ 
-              background: result.percentage > 0 
-                ? `linear-gradient(to right, #6366f1 ${result.percentage}%, #e5e7eb ${result.percentage}%)`
-                : '#e5e7eb'
-            }}
+            className={`option-bar ${result.percentage > 0 ? 'has-votes' : ''}`}
+            style={result.percentage > 0 ? {
+              background: `linear-gradient(to right, #6366f1 ${result.percentage}%, #e5e7eb ${result.percentage}%)`
+            } : {}}
           >
             <div className="option-icon">
               {String.fromCharCode(65 + poll.options.findIndex(opt => opt.id === result.optionId))}

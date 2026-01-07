@@ -844,6 +844,13 @@ body {
   border-radius: 8px;
   position: relative;
   min-height: 60px;
+  background: #e5e7eb;
+  margin-bottom: 0.5rem;
+}
+
+.option-bar.has-votes {
+  background: #6366f1;
+  color: white;
 }
 
 .option-icon {
@@ -858,6 +865,7 @@ body {
   color: #6366f1;
   font-weight: bold;
   font-size: 1.1rem;
+  flex-shrink: 0;
 }
 
 .option-text {
@@ -866,10 +874,20 @@ body {
   color: #1f2937;
 }
 
+.option-bar.has-votes .option-text {
+  color: white;
+}
+
 .option-percentage {
   font-weight: 600;
   margin-left: 1rem;
   color: #1f2937;
+  min-width: 50px;
+  text-align: right;
+}
+
+.option-bar.has-votes .option-percentage {
+  color: white;
 }
 
 /* Participants List */
