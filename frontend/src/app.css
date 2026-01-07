@@ -175,32 +175,173 @@ body {
 .teacher-dashboard-container {
   min-height: 100vh;
   background: #f8f9fa;
-  padding: 1rem;
+  padding: 2rem;
+}
+
+.teacher-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.view-history-btn {
+  background: #6366f1;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.create-poll-section {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.create-poll-section h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.create-poll-section > p {
+  font-size: 1.1rem;
+  color: #6b7280;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.poll-form {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 2rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.question-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.duration-selector {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.duration-selector select {
+  padding: 8px 12px;
+  border: 2px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.timer-display {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.options-section h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.option-input-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.option-number {
+  background: #6366f1;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.option-input-group input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.add-option-btn {
+  background: transparent;
+  color: #6366f1;
+  border: 2px dashed #6366f1;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-bottom: 2rem;
+}
+
+.ask-question-btn {
+  background: #6366f1;
+  color: white;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
 }
 
 /* Active Poll Layout */
 .active-poll-layout {
-  display: grid;
-  grid-template-columns: 1fr 300px;
-  gap: 1rem;
-  max-width: 1000px;
+  display: flex;
+  gap: 2rem;
+  max-width: 1200px;
   margin: 0 auto;
-  height: calc(100vh - 120px);
 }
 
 .poll-main {
-  background: white;
-  border-radius: 8px;
-  padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  overflow: hidden;
+  flex: 1;
 }
 
 .poll-sidebar {
+  width: 300px;
   background: white;
-  border-radius: 8px;
-  padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
   height: fit-content;
 }
 
@@ -229,21 +370,19 @@ body {
 .question-display {
   background: white;
   border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  margin-bottom: 1.5rem;
-  max-width: 600px;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
 }
 
 .question-header {
   background: #374151;
   color: white;
-  padding: 1rem 1.5rem;
+  padding: 1rem;
   border-radius: 8px;
-  margin-bottom: 1.5rem;
-  font-size: 1rem;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
   font-weight: 500;
-  line-height: 1.4;
 }
 
 .question-options {
@@ -697,32 +836,24 @@ body {
 .option-bar {
   display: flex;
   align-items: center;
-  padding: 0.75rem 1rem;
-  border-radius: 6px;
+  padding: 1rem;
+  border-radius: 8px;
   position: relative;
-  min-height: 48px;
-  background: #e5e7eb;
-  margin-bottom: 0.5rem;
-}
-
-.option-bar.has-votes {
-  background: #6366f1;
-  color: white;
+  min-height: 60px;
 }
 
 .option-icon {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   background: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 0.75rem;
+  margin-right: 1rem;
   color: #6366f1;
   font-weight: bold;
-  font-size: 0.9rem;
-  flex-shrink: 0;
+  font-size: 1.1rem;
 }
 
 .option-text {
@@ -731,20 +862,10 @@ body {
   color: #1f2937;
 }
 
-.option-bar.has-votes .option-text {
-  color: white;
-}
-
 .option-percentage {
   font-weight: 600;
   margin-left: 1rem;
   color: #1f2937;
-  min-width: 50px;
-  text-align: right;
-}
-
-.option-bar.has-votes .option-percentage {
-  color: white;
 }
 
 /* Participants List */
@@ -1046,154 +1167,4 @@ body {
   color: #6b7280;
   max-width: 500px;
   line-height: 1.6;
-}
-/* Responsive Design */
-@media (max-width: 768px) {
-  .active-poll-layout {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .poll-sidebar {
-    flex: none;
-    width: 100%;
-  }
-  
-  .teacher-dashboard-container {
-    padding: 1rem;
-  }
-}
-/* Question Display Override */
-.question-display {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  background: none;
-  box-shadow: none;
-  padding: 0;
-  margin: 0;
-}
-
-.question-header {
-  background: #374151;
-  color: white;
-  padding: 0.75rem 1rem;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.question-options {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.option-bar {
-  display: flex;
-  align-items: center;
-  padding: 0.75rem;
-  border-radius: 4px;
-  background: #6366f1 !important;
-  color: white !important;
-  min-height: 44px;
-  margin-bottom: 0;
-}
-
-.option-icon {
-  width: 20px;
-  height: 20px;
-  background: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 0.75rem;
-  color: #6366f1;
-  font-weight: bold;
-  font-size: 0.8rem;
-  flex-shrink: 0;
-}
-
-.option-text {
-  flex: 1;
-  font-weight: 500;
-  font-size: 0.9rem;
-  color: white !important;
-}
-
-.option-percentage {
-  font-weight: 600;
-  font-size: 0.9rem;
-  min-width: 40px;
-  text-align: right;
-  color: white !important;
-}
-/* Force Layout Changes - Higher Priority */
-.teacher-dashboard-container .active-poll-layout {
-  display: grid !important;
-  grid-template-columns: 1fr 300px !important;
-  gap: 1rem !important;
-  max-width: 1000px !important;
-  margin: 0 auto !important;
-  height: calc(100vh - 120px) !important;
-}
-
-.teacher-dashboard-container .poll-main {
-  background: white !important;
-  border-radius: 8px !important;
-  padding: 1rem !important;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
-}
-
-.teacher-dashboard-container .poll-sidebar {
-  background: white !important;
-  border-radius: 8px !important;
-  padding: 1rem !important;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
-  height: fit-content !important;
-}
-
-/* Create Poll Form - Consistent Sizing */
-.teacher-dashboard-container .create-poll-section {
-  max-width: 600px !important;
-  margin: 0 auto !important;
-}
-
-.teacher-dashboard-container .poll-form {
-  max-width: 600px !important;
-  margin: 0 auto !important;
-  padding: 1.5rem !important;
-}
-
-/* Question Display - Force Purple Bars */
-.teacher-dashboard-container .question-display {
-  height: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  background: none !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-.teacher-dashboard-container .option-bar {
-  background: #6366f1 !important;
-  color: white !important;
-  padding: 0.75rem !important;
-  border-radius: 4px !important;
-  min-height: 44px !important;
-  margin-bottom: 0.5rem !important;
-}
-
-.teacher-dashboard-container .option-text {
-  color: white !important;
-  font-size: 0.9rem !important;
-}
-
-.teacher-dashboard-container .option-percentage {
-  color: white !important;
-  font-size: 0.9rem !important;
 }
