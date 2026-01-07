@@ -8,7 +8,7 @@ interface Props {
 
 const PollResults: React.FC<Props> = ({ poll, results }) => {
   // Create results array with all options, even if no votes yet
-  const allResults = poll.options.map((option, index) => {
+  const allResults = poll.options.map((option) => {
     const existingResult = results.find(r => r.optionId === option.id);
     return {
       optionId: option.id,
