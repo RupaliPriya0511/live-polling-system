@@ -23,8 +23,12 @@ const TeacherDashboard: React.FC<Props> = ({ socket }) => {
   const [students, setStudents] = useState<Student[]>([]);
   const [activeTab, setActiveTab] = useState<'chat' | 'participants'>('participants');
   const [chatMessages, setChatMessages] = useState<any[]>([]);
+  const [showChatPopup, setShowChatPopup] = useState(false);
 
   useEffect(() => {
+    // Request current state on mount
+    socket.emit('get:current-state');
+    
     socket.on('poll:created', (data) => {
       console.log('[TEACHER] Poll created:', data);
       setCurrentPoll(data.poll);
@@ -58,7 +62,7 @@ const TeacherDashboard: React.FC<Props> = ({ socket }) => {
 
     socket.on('poll:state', (data) => {
       console.log('[TEACHER] Poll state:', data);
-      if (data.poll) {
+      if (data.poll && data.poll.isActive) {
         setCurrentPoll(data.poll);
         if (data.results && data.results.results) {
           setResults(data.results.results);
@@ -71,6 +75,9 @@ const TeacherDashboard: React.FC<Props> = ({ socket }) => {
           }));
           setResults(initialResults);
         }
+      } else {
+        setCurrentPoll(null);
+        setResults([]);
       }
     });
 
@@ -252,6 +259,96 @@ const TeacherDashboard: React.FC<Props> = ({ socket }) => {
     );
   }
 
+  // Render chat popup modal
+  const renderChatPopup = () => (
+    <div style={{
+      position: 'fixed',
+      bottom: '6rem',
+      right: '2rem',
+      width: '350px',
+      height: '450px',
+      background: 'white',
+      border: '1px solid #ccc',
+      borderRadius: '12px',
+      display: 'flex',
+      flexDirection: 'column',
+      zIndex: 1000,
+      boxShadow: '0 8px 25px rgba(0,0,0,0.15)'
+    }}>
+      <div style={{ 
+        padding: '1rem', 
+        borderBottom: '1px solid #eee', 
+        display: 'flex', 
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        background: '#f8f9fa',
+        borderRadius: '12px 12px 0 0'
+      }}>
+        <div style={{ display: 'flex', gap: '1rem' }}>
+          <button 
+            onClick={() => setActiveTab('chat')}
+            style={{
+              background: 'none',
+              border: 'none',
+              fontSize: '0.9rem',
+              cursor: 'pointer',
+              color: activeTab === 'chat' ? '#6366f1' : '#6b7280',
+              padding: '0.5rem 0',
+              borderBottom: activeTab === 'chat' ? '2px solid #6366f1' : 'none'
+            }}
+          >
+            Chat
+          </button>
+          <button 
+            onClick={() => setActiveTab('participants')}
+            style={{
+              background: 'none',
+              border: 'none',
+              fontSize: '0.9rem',
+              cursor: 'pointer',
+              color: activeTab === 'participants' ? '#6366f1' : '#6b7280',
+              padding: '0.5rem 0',
+              borderBottom: activeTab === 'participants' ? '2px solid #6366f1' : 'none'
+            }}
+          >
+            Participants
+          </button>
+        </div>
+        <button 
+          onClick={() => setShowChatPopup(false)} 
+          style={{ 
+            background: 'none', 
+            border: 'none', 
+            fontSize: '1.2rem', 
+            cursor: 'pointer',
+            color: '#6b7280',
+            width: '24px',
+            height: '24px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: '50%'
+          }}
+        >
+          ×
+        </button>
+      </div>
+      <div style={{ flex: 1, overflow: 'hidden', padding: '1rem' }}>
+        {activeTab === 'participants' && (
+          <ParticipantsList students={students} onKick={handleKickStudent} />
+        )}
+        {activeTab === 'chat' && (
+          <Chat 
+            socket={socket} 
+            currentUserName="Teacher" 
+            messages={chatMessages}
+            onMessagesChange={setChatMessages}
+          />
+        )}
+      </div>
+    </div>
+  );
+
   // Active poll view
   return (
     <div className="teacher-dashboard-container">
@@ -262,45 +359,35 @@ const TeacherDashboard: React.FC<Props> = ({ socket }) => {
         </button>
       </div>
 
-      <div className="active-poll-layout">
-        <div className="poll-main">
-          <PollResults poll={currentPoll} results={results} />
-          <button className="ask-new-question-btn" onClick={handleNewQuestion}>
-            + Ask a new question
-          </button>
-        </div>
-
-        <div className="poll-sidebar">
-          <div className="sidebar-tabs">
-            <button 
-              className={`sidebar-tab ${activeTab === 'chat' ? 'active' : ''}`}
-              onClick={() => setActiveTab('chat')}
-            >
-              Chat
-            </button>
-            <button 
-              className={`sidebar-tab ${activeTab === 'participants' ? 'active' : ''}`}
-              onClick={() => setActiveTab('participants')}
-            >
-              Participants
-            </button>
-          </div>
-          
-          {activeTab === 'participants' && (
-            <ParticipantsList students={students} onKick={handleKickStudent} />
-          )}
-          
-          {activeTab === 'chat' && (
-            <Chat 
-              socket={socket} 
-              currentUserName="Teacher" 
-              messages={chatMessages}
-              onMessagesChange={setChatMessages}
-            />
-          )}
-        </div>
+      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+        <PollResults poll={currentPoll} results={results} />
+        <button className="ask-new-question-btn" onClick={handleNewQuestion}>
+          + Ask a new question
+        </button>
       </div>
 
+      <button 
+        onClick={() => setShowChatPopup(!showChatPopup)}
+        style={{
+          position: 'fixed',
+          bottom: '2rem',
+          right: '2rem',
+          width: '60px',
+          height: '60px',
+          background: '#6366f1',
+          color: 'white',
+          border: 'none',
+          borderRadius: '50%',
+          fontSize: '1.5rem',
+          cursor: 'pointer',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+          zIndex: 100
+        }}
+      >
+        💬
+      </button>
+
+      {showChatPopup && renderChatPopup()}
       {showHistory && <PollHistory socket={socket} onClose={() => setShowHistory(false)} />}
     </div>
   );
