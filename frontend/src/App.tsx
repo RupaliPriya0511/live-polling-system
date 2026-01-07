@@ -4,7 +4,7 @@ import RoleSelection from './components/RoleSelection';
 import StudentNameInput from './components/StudentNameInput';
 import TeacherDashboard from './components/TeacherDashboard';
 import StudentView from './components/StudentView';
-import './App.css';
+import './app.css';
 
 function App() {
   const { socket } = useSocket();
