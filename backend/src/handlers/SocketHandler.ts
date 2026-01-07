@@ -34,12 +34,18 @@ export const setupSocketHandlers = (io: Server) => {
         }
 
         // Update or create user record
+        console.log('[USER] Attempting to save user to database...');
         const savedUser = await User.findOneAndUpdate(
           { sessionId },
           { socketId: socket.id, name, role, connectedAt: new Date() },
           { upsert: true, new: true }
         );
-        console.log(`[USER] User saved to database:`, savedUser);
+        console.log('[USER] User saved successfully:', {
+          id: savedUser._id,
+          name: savedUser.name,
+          role: savedUser.role,
+          sessionId: savedUser.sessionId
+        });
 
         // Send current state
         await sendCurrentState(socket, sessionId);
@@ -90,8 +96,12 @@ export const setupSocketHandlers = (io: Server) => {
           return;
         }
 
+        console.log('[POLL] Creating poll in database...');
         const poll = await pollService.createPoll(data.question, data.options, data.duration);
+        console.log('[POLL] Poll created:', poll._id);
+        
         const startedPoll = await pollService.startPoll(poll._id.toString());
+        console.log('[POLL] Poll started:', startedPoll?._id);
 
         // Broadcast to all clients
         console.log('Broadcasting poll to all clients:', startedPoll);
@@ -124,12 +134,14 @@ export const setupSocketHandlers = (io: Server) => {
           return;
         }
 
+        console.log('[VOTE] Submitting vote to database...');
         const vote = await voteService.submitVote(
           data.pollId,
           user.sessionId,
           user.name,
           data.optionId
         );
+        console.log('[VOTE] Vote saved:', vote._id);
 
         socket.emit('vote:submitted', { success: true });
 
