@@ -328,24 +328,24 @@ body {
 /* Active Poll Layout */
 .active-poll-layout {
   display: flex;
-  gap: 2rem;
-  max-width: 1200px;
+  gap: 1.5rem;
+  max-width: 1400px;
   margin: 0 auto;
-  min-height: 60vh;
+  padding: 0 2rem;
 }
 
 .poll-main {
-  flex: 2;
-  min-width: 0;
+  flex: 1;
+  max-width: 600px;
 }
 
 .poll-sidebar {
-  flex: 0 0 320px;
+  flex: 0 0 280px;
   background: white;
   border-radius: 12px;
-  padding: 1.5rem;
+  padding: 1rem;
   height: fit-content;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .sidebar-tabs {
@@ -373,18 +373,19 @@ body {
 .question-display {
   background: white;
   border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  margin-bottom: 2rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 1.5rem;
+  max-width: 600px;
 }
 
 .question-header {
   background: #374151;
   color: white;
-  padding: 1.5rem;
+  padding: 1rem 1.5rem;
   border-radius: 8px;
-  margin-bottom: 2rem;
-  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
   font-weight: 500;
   line-height: 1.4;
 }
@@ -840,10 +841,10 @@ body {
 .option-bar {
   display: flex;
   align-items: center;
-  padding: 1rem;
-  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
   position: relative;
-  min-height: 60px;
+  min-height: 48px;
   background: #e5e7eb;
   margin-bottom: 0.5rem;
 }
@@ -854,17 +855,17 @@ body {
 }
 
 .option-icon {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   background: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 1rem;
+  margin-right: 0.75rem;
   color: #6366f1;
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   flex-shrink: 0;
 }
 
