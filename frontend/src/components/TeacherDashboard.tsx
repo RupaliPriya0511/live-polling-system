@@ -266,7 +266,7 @@ const TeacherDashboard: React.FC<Props> = ({ socket }) => {
           </button>
         </div>
         
-        <div className="create-poll-section" style={{ maxWidth: '900px', margin: '0 auto' }}>
+        <div className="create-poll-section" style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <h1>Let's Get Started</h1>
           <p>you'll have the ability to create and manage polls, ask questions, and monitor your students' responses in real-time.</p>
           
@@ -388,7 +388,7 @@ const TeacherDashboard: React.FC<Props> = ({ socket }) => {
         </button>
       </div>
 
-      <div style={{ maxWidth: '900px', margin: '0 auto', width: '100%', padding: '0 1rem' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', width: '100%', padding: '0 1rem' }}>>
         <PollResults poll={currentPoll} results={results} />
         <button className="ask-new-question-btn" onClick={handleNewQuestion}>
           + Ask a new question
