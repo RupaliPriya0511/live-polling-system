@@ -1131,3 +1131,69 @@ body {
   text-align: right;
   color: white !important;
 }
+/* Force Layout Changes - Higher Priority */
+.teacher-dashboard-container .active-poll-layout {
+  display: grid !important;
+  grid-template-columns: 1fr 300px !important;
+  gap: 1rem !important;
+  max-width: 1000px !important;
+  margin: 0 auto !important;
+  height: calc(100vh - 120px) !important;
+}
+
+.teacher-dashboard-container .poll-main {
+  background: white !important;
+  border-radius: 8px !important;
+  padding: 1rem !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+}
+
+.teacher-dashboard-container .poll-sidebar {
+  background: white !important;
+  border-radius: 8px !important;
+  padding: 1rem !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+  height: fit-content !important;
+}
+
+/* Create Poll Form - Consistent Sizing */
+.teacher-dashboard-container .create-poll-section {
+  max-width: 600px !important;
+  margin: 0 auto !important;
+}
+
+.teacher-dashboard-container .poll-form {
+  max-width: 600px !important;
+  margin: 0 auto !important;
+  padding: 1.5rem !important;
+}
+
+/* Question Display - Force Purple Bars */
+.teacher-dashboard-container .question-display {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.teacher-dashboard-container .option-bar {
+  background: #6366f1 !important;
+  color: white !important;
+  padding: 0.75rem !important;
+  border-radius: 4px !important;
+  min-height: 44px !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.teacher-dashboard-container .option-text {
+  color: white !important;
+  font-size: 0.9rem !important;
+}
+
+.teacher-dashboard-container .option-percentage {
+  color: white !important;
+  font-size: 0.9rem !important;
+}
