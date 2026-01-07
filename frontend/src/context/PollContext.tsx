@@ -1,10 +1,10 @@
 import React, { createContext, useContext, ReactNode } from 'react';
 import { usePollState } from '../hooks/usePollState';
-import { Poll, User } from '../types';
+import { Poll } from '../types';
 
 interface PollContextType {
-  currentUser: User | null;
-  setCurrentUser: (user: User) => void;
+  currentPoll: Poll | null;
+  setCurrentPoll: React.Dispatch<React.SetStateAction<Poll | null>>;
   polls: Poll[];
   addPoll: (poll: Poll) => void;
   updatePoll: (pollId: string, updates: Partial<Poll>) => void;

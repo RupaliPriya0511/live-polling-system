@@ -27,7 +27,7 @@ const PollResults: React.FC<Props> = ({ poll, results }) => {
       </div>
       
       <div className="question-options">
-        {allResults.map((result, index) => (
+        {allResults.map((result) => (
           <div 
             key={result.optionId} 
             className="option-bar"
@@ -38,7 +38,7 @@ const PollResults: React.FC<Props> = ({ poll, results }) => {
             }}
           >
             <div className="option-icon">
-              {String.fromCharCode(65 + index)}
+              {String.fromCharCode(65 + poll.options.findIndex(opt => opt.id === result.optionId))}
             </div>
             <div className="option-text">{result.optionText}</div>
             <div className="option-percentage">{result.percentage}%</div>

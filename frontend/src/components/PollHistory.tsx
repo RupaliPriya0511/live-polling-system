@@ -45,7 +45,7 @@ const PollHistory: React.FC<Props> = ({ socket, onClose }) => {
             <div className="no-history">No polls conducted yet</div>
           ) : (
             <div className="history-list">
-              {history.map((item, index) => (
+              {history.map((item) => (
                 <div key={item.poll._id} className="history-question">
                   <h3>Question {item.poll.questionNumber}</h3>
                   <div className="history-question-text">{item.poll.question}</div>

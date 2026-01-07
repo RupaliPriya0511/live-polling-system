@@ -1,17 +1,13 @@
-// ============================================
-// FILE: frontend/src/App.tsx
-// ============================================
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSocket } from './hooks/useSocket';
 import RoleSelection from './components/RoleSelection';
 import StudentNameInput from './components/StudentNameInput';
 import TeacherDashboard from './components/TeacherDashboard';
 import StudentView from './components/StudentView';
-import { Poll } from './types';
 import './App.css';
 
 function App() {
-  const { socket, isConnected } = useSocket();
+  const { socket } = useSocket();
   const [role, setRole] = useState<'teacher' | 'student' | null>(null);
   const [studentName, setStudentName] = useState<string>('');
   const [sessionId] = useState(() => `session_${Date.now()}_${Math.random()}`);

@@ -8,7 +8,7 @@ interface Props {
   onMessagesChange?: (messages: any[]) => void;
 }
 
-const Chat: React.FC<Props> = ({ socket, currentUserName = 'Unknown', messages: externalMessages, onMessagesChange }) => {
+const Chat: React.FC<Props> = ({ socket, currentUserName = 'Unknown', messages: externalMessages }) => {
   const [messages, setMessages] = useState<any[]>(externalMessages || []);
   const [newMessage, setNewMessage] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
