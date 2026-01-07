@@ -21,6 +21,7 @@ export const setupSocketHandlers = (io: Server) => {
     socket.on('user:register', async (data: { sessionId: string; name: string; role: 'teacher' | 'student' }) => {
       try {
         const { sessionId, name, role } = data;
+        console.log(`[USER] Registering user: ${name} (${role}) with session: ${sessionId}`);
         
         // Store user info
         connectedUsers.set(socket.id, { sessionId, name, role, socketId: socket.id });
@@ -33,11 +34,12 @@ export const setupSocketHandlers = (io: Server) => {
         }
 
         // Update or create user record
-        await User.findOneAndUpdate(
+        const savedUser = await User.findOneAndUpdate(
           { sessionId },
           { socketId: socket.id, name, role, connectedAt: new Date() },
           { upsert: true, new: true }
         );
+        console.log(`[USER] User saved to database:`, savedUser);
 
         // Send current state
         await sendCurrentState(socket, sessionId);
@@ -62,6 +64,7 @@ export const setupSocketHandlers = (io: Server) => {
 
         socket.emit('user:registered', { success: true });
       } catch (error) {
+        console.error('[USER] Registration failed:', error);
         socket.emit('error', { message: 'Registration failed' });
       }
     });
