@@ -23,7 +23,6 @@ const TeacherDashboard: React.FC<Props> = ({ socket }) => {
   const [students, setStudents] = useState<Student[]>([]);
   const [activeTab, setActiveTab] = useState<'chat' | 'participants'>('participants');
   const [chatMessages, setChatMessages] = useState<any[]>([]);
-  const [showChatPopup, setShowChatPopup] = useState(false);
 
   useEffect(() => {
     socket.on('poll:created', (data) => {
@@ -263,70 +262,46 @@ const TeacherDashboard: React.FC<Props> = ({ socket }) => {
         </button>
       </div>
 
-      <div className="poll-main">
-        <PollResults poll={currentPoll} results={results} />
-        <button className="ask-new-question-btn" onClick={handleNewQuestion}>
-          + Ask a new question
-        </button>
-      </div>
+      <div className="active-poll-layout">
+        <div className="poll-main">
+          <PollResults poll={currentPoll} results={results} />
+          <button className="ask-new-question-btn" onClick={handleNewQuestion}>
+            + Ask a new question
+          </button>
+        </div>
 
-      {/* Floating Chat Button */}
-      <button 
-        className="chat-toggle-btn"
-        onClick={() => setShowChatPopup(!showChatPopup)}
-      >
-        💬
-      </button>
-
-      {/* Chat Popup Modal */}
-      {showChatPopup && (
-        <div className="chat-popup-modal">
-          <div className="chat-popup-header">
-            <div className="chat-popup-tabs">
-              <button 
-                className={`chat-popup-tab ${activeTab === 'chat' ? 'active' : ''}`}
-                onClick={() => setActiveTab('chat')}
-              >
-                Chat
-              </button>
-              <button 
-                className={`chat-popup-tab ${activeTab === 'participants' ? 'active' : ''}`}
-                onClick={() => setActiveTab('participants')}
-              >
-                Participants
-              </button>
-            </div>
+        <div className="poll-sidebar">
+          <div className="sidebar-tabs">
             <button 
-              className="chat-popup-close"
-              onClick={() => setShowChatPopup(false)}
+              className={`sidebar-tab ${activeTab === 'chat' ? 'active' : ''}`}
+              onClick={() => setActiveTab('chat')}
             >
-              ×
+              Chat
+            </button>
+            <button 
+              className={`sidebar-tab ${activeTab === 'participants' ? 'active' : ''}`}
+              onClick={() => setActiveTab('participants')}
+            >
+              Participants
             </button>
           </div>
           
-          <div className="chat-popup-content">
-            {activeTab === 'chat' ? (
-              <Chat 
-                socket={socket} 
-                currentUserName="Teacher" 
-                messages={chatMessages}
-              />
-            ) : (
-              <ParticipantsList 
-                students={students} 
-                onKick={handleKickStudent} 
-              />
-            )}
-          </div>
+          {activeTab === 'participants' && (
+            <ParticipantsList students={students} onKick={handleKickStudent} />
+          )}
+          
+          {activeTab === 'chat' && (
+            <Chat 
+              socket={socket} 
+              currentUserName="Teacher" 
+              messages={chatMessages}
+              onMessagesChange={setChatMessages}
+            />
+          )}
         </div>
-      )}
+      </div>
 
-      {showHistory && (
-        <PollHistory 
-          socket={socket} 
-          onClose={() => setShowHistory(false)} 
-        />
-      )}
+      {showHistory && <PollHistory socket={socket} onClose={() => setShowHistory(false)} />}
     </div>
   );
 };
